@@ -1,0 +1,660 @@
+/* MV Wizard 전용 스타일 */
+
+/* ========== 변수 ========== */
+:root {
+    --wizard-primary: #667eea;
+    --wizard-secondary: #764ba2;
+    --wizard-success: #2ecc71;
+    --wizard-warning: #f0932b;
+    --wizard-danger: #e74c3c;
+    --wizard-dark: #2c3e50;
+    --wizard-light: #f8f9fa;
+    --wizard-gradient: linear-gradient(135deg, var(--wizard-primary), var(--wizard-secondary));
+}
+
+/* ========== 진행 표시기 ========== */
+.wizard-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.wizard-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+    max-width: 150px;
+}
+
+.wizard-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 60%;
+    width: 80%;
+    height: 3px;
+    background: #e0e0e0;
+    z-index: 0;
+}
+
+.wizard-step.completed:not(:last-child)::after {
+    background: var(--wizard-success);
+}
+
+.wizard-step.active:not(:last-child)::after {
+    background: linear-gradient(90deg, var(--wizard-primary), #e0e0e0);
+}
+
+.step-indicator {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #666;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.wizard-step.active .step-indicator {
+    background: var(--wizard-gradient);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transform: scale(1.1);
+}
+
+.wizard-step.completed .step-indicator {
+    background: var(--wizard-success);
+    color: white;
+}
+
+.wizard-step.completed .step-indicator::before {
+    content: '\2713';
+}
+
+.wizard-step.completed .step-number {
+    display: none;
+}
+
+.step-label {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #666;
+    text-align: center;
+}
+
+.wizard-step.active .step-label {
+    color: var(--wizard-primary);
+    font-weight: 600;
+}
+
+.wizard-step.completed .step-label {
+    color: var(--wizard-success);
+}
+
+/* ========== 단계별 패널 ========== */
+.step-panel {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.step-panel.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.step-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.step-header h2 {
+    color: var(--wizard-dark);
+    margin-bottom: 0.5rem;
+}
+
+.step-header p {
+    color: #666;
+}
+
+.step-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    min-height: 400px;
+}
+
+/* ========== 스토리 입력 ========== */
+.story-input-wrapper {
+    position: relative;
+}
+
+.story-textarea {
+    width: 100%;
+    min-height: 300px;
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.3s;
+}
+
+.story-textarea:focus {
+    outline: none;
+    border-color: var(--wizard-primary);
+}
+
+.story-counter {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.8rem;
+    color: #999;
+}
+
+/* ========== 분석 결과 ========== */
+.analysis-result {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.analysis-card {
+    background: var(--wizard-light);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.analysis-card h5 {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.analysis-card .value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--wizard-primary);
+}
+
+.emotion-badge {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.emotion-badge.happy { background: #ffeaa7; color: #d68910; }
+.emotion-badge.sad { background: #a9cce3; color: #2471a3; }
+.emotion-badge.angry { background: #f5b7b1; color: #c0392b; }
+.emotion-badge.romantic { background: #fadbd8; color: #943126; }
+.emotion-badge.neutral { background: #d5dbdb; color: #566573; }
+
+/* ========== 가사 편집기 ========== */
+.lyrics-editor {
+    position: relative;
+}
+
+.lyrics-textarea {
+    width: 100%;
+    min-height: 350px;
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    line-height: 1.8;
+    resize: vertical;
+}
+
+.lyrics-textarea:focus {
+    outline: none;
+    border-color: var(--wizard-primary);
+}
+
+/* ========== 오디오 플레이어 ========== */
+.audio-player-wrapper {
+    background: var(--wizard-gradient);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    color: white;
+}
+
+.audio-player-wrapper h4 {
+    margin-bottom: 1rem;
+}
+
+.audio-player {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.genre-selector {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.genre-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.genre-btn:hover,
+.genre-btn.active {
+    background: rgba(255,255,255,0.2);
+    border-color: white;
+}
+
+/* ========== 장면 카드 그리드 ========== */
+.scene-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.scene-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.scene-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.scene-image {
+    width: 100%;
+    aspect-ratio: 9/16;
+    object-fit: cover;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scene-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.scene-placeholder {
+    color: #999;
+    text-align: center;
+}
+
+.scene-placeholder i {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.scene-info {
+    padding: 1rem;
+}
+
+.scene-info h5 {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--wizard-dark);
+}
+
+.scene-info p {
+    font-size: 0.8rem;
+    color: #666;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.scene-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.scene-actions .btn {
+    flex: 1;
+    padding: 0.3rem;
+    font-size: 0.8rem;
+}
+
+/* ========== 비디오 미리보기 (9:16) ========== */
+.video-preview-shorts {
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 9/16;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.video-preview-shorts video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ========== 최종 비디오 패널 ========== */
+.final-video-panel {
+    text-align: center;
+}
+
+.final-video-wrapper {
+    max-width: 400px;
+    margin: 0 auto 2rem;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-download {
+    background: var(--wizard-success);
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+}
+
+.btn-download:hover {
+    background: #27ae60;
+    transform: translateY(-2px);
+}
+
+.btn-youtube {
+    background: #FF0000;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+}
+
+.btn-youtube:hover {
+    background: #CC0000;
+    transform: translateY(-2px);
+}
+
+/* ========== 네비게이션 ========== */
+.wizard-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn-nav {
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-prev {
+    background: var(--wizard-light);
+    border: 2px solid #e0e0e0;
+    color: #666;
+}
+
+.btn-prev:hover {
+    background: #e0e0e0;
+}
+
+.btn-next {
+    background: var(--wizard-gradient);
+    border: none;
+    color: white;
+}
+
+.btn-next:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-next:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ========== 로딩 상태 ========== */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--wizard-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    margin-top: 1rem;
+    color: var(--wizard-dark);
+    font-size: 1.1rem;
+}
+
+.loading-subtext {
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ========== 반응형 ========== */
+@media (max-width: 768px) {
+    .wizard-progress {
+        padding: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .wizard-step {
+        max-width: 80px;
+        margin-bottom: 1rem;
+    }
+
+    .wizard-step:not(:last-child)::after {
+        display: none;
+    }
+
+    .step-indicator {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+
+    .step-label {
+        font-size: 0.7rem;
+    }
+
+    .step-content {
+        padding: 1rem;
+    }
+
+    .scene-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .wizard-navigation {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-nav {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ========== 유틸리티 ========== */
+.text-center { text-align: center; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+
+.btn-regenerate {
+    background: var(--wizard-warning);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.btn-regenerate:hover {
+    background: #e08e25;
+}
+
+.btn-edit {
+    background: var(--wizard-primary);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.btn-edit:hover {
+    background: #5a6fd6;
+}
+
+/* YouTube Upload Modal */
+.youtube-upload-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.youtube-upload-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.youtube-upload-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--wizard-dark);
+}
+
+.youtube-upload-form input,
+.youtube-upload-form textarea,
+.youtube-upload-form select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.youtube-upload-form input:focus,
+.youtube-upload-form textarea:focus,
+.youtube-upload-form select:focus {
+    outline: none;
+    border-color: var(--wizard-primary);
+}
+
+.privacy-options {
+    display: flex;
+    gap: 1rem;
+}
+
+.privacy-option {
+    flex: 1;
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.privacy-option:hover {
+    border-color: var(--wizard-primary);
+}
+
+.privacy-option.active {
+    border-color: var(--wizard-primary);
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.privacy-option i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}

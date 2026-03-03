@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(python server.py:*)",
+      "Bash(curl:*)",
+      "Bash(python -m http.server:*)",
+      "Bash(pip install:*)",
+      "Bash(chmod:*)",
+      "Bash(powershell.exe -Command \"./start-servers.bat\")",
+      "Bash(where:*)",
+      "Bash(node --version:*)",
+      "Bash(dir /s \"C:\\\\workspace\\\\chanho\\\\chanho-playground-with-text-to-image\\\\chanho-playground\\\\backend\")"
+    ]
+  }
+}

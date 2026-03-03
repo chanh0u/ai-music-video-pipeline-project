@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Local LLM Chat - 로컬 AI 채팅">
+    <meta name="author" content="Chanho">
+    <title>Local LLM Chat - 찬호의 놀이터</title>
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        .chat-container {
+            height: 500px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .chat-message {
+            margin-bottom: 16px;
+            display: flex;
+            gap: 12px;
+        }
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .chat-message.user .chat-avatar {
+            background: #5c5cff;
+        }
+        .chat-message.assistant .chat-avatar {
+            background: #28a745;
+        }
+        .chat-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .chat-message.user .chat-bubble {
+            background: #5c5cff;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-message.assistant .chat-bubble {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 4px;
+        }
+        .chat-input-wrap {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .chat-input-wrap textarea {
+            flex: 1;
+            resize: none;
+            border-radius: 24px;
+            padding: 12px 20px;
+        }
+        .chat-input-wrap button {
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .model-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .model-status.loaded {
+            background: #d4edda;
+            color: #155724;
+        }
+        .model-status.not-loaded {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 8px 0;
+        }
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .settings-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-light shadow-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="logo-icon">🎪</span>
+                <span class="logo-text">찬호의 놀이터</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">홈</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">놀이터</a>
+                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                            <li><a class="dropdown-item" href="text-to-image.html">🎨 Text to Image</a></li>
+                            <li><a class="dropdown-item" href="2d-to-3d.html">🎮 2D to 3D</a></li>
+                            <li><a class="dropdown-item" href="story-to-mv.html">🎬 Story to MV</a></li>
+                            <li><a class="dropdown-item active" href="local-llm.html">🤖 Local LLM Chat</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#section_6">연락하기</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- PAGE HEADER -->
+        <section class="page-header-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="page-icon">🤖</div>
+                        <h1 class="page-title">Local LLM Chat</h1>
+                        <p class="page-subtitle">로컬에서 실행되는 AI와 대화하세요</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN CONTENT -->
+        <section class="tool-section section-padding">
+            <div class="container">
+                <div class="row">
+                    <!-- Settings Panel -->
+                    <div class="col-lg-4 col-12 mb-4">
+                        <div class="tool-card">
+                            <h4 class="mb-4">모델 설정</h4>
+
+                            <div class="mb-3">
+                                <label for="modelSelect" class="form-label">모델 선택</label>
+                                <select class="form-select" id="modelSelect">
+                                    <option value="">모델을 선택하세요</option>
+                                </select>
+                                <small class="text-muted">backend/models/ 폴더에 GGUF 파일을 넣어주세요</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <button id="loadModelBtn" class="btn btn-outline-primary w-100" disabled>
+                                    <i class="bi-download me-2"></i>모델 로드
+                                </button>
+                            </div>
+
+                            <div id="modelStatus" class="mb-3">
+                                <span class="model-status not-loaded">
+                                    <i class="bi-circle"></i> 모델 미선택
+                                </span>
+                            </div>
+
+                            <hr>
+
+                            <h5 class="mb-3">생성 설정</h5>
+
+                            <div class="mb-3">
+                                <label for="temperature" class="form-label">
+                                    Temperature: <span id="tempValue">0.7</span>
+                                </label>
+                                <input type="range" class="form-range" id="temperature" min="0" max="2" step="0.1" value="0.7">
+                                <small class="text-muted">낮을수록 일관된 응답, 높을수록 창의적</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="maxTokens" class="form-label">최대 토큰</label>
+                                <select class="form-select" id="maxTokens">
+                                    <option value="256">256</option>
+                                    <option value="512">512</option>
+                                    <option value="1024" selected>1024</option>
+                                    <option value="2048">2048</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="systemPrompt" class="form-label">시스템 프롬프트</label>
+                                <textarea class="form-control" id="systemPrompt" rows="3" placeholder="AI의 역할을 정의하세요">당신은 친절하고 도움이 되는 AI 어시스턴트입니다. 한국어로 대화합니다.</textarea>
+                            </div>
+
+                            <button id="clearChatBtn" class="btn btn-outline-secondary w-100">
+                                <i class="bi-trash me-2"></i>대화 초기화
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chat Panel -->
+                    <div class="col-lg-8 col-12">
+                        <div class="tool-card">
+                            <h4 class="mb-4">대화</h4>
+
+                            <div class="chat-container" id="chatContainer">
+                                <div class="text-center text-muted py-5">
+                                    <i class="bi-chat-dots" style="font-size: 48px;"></i>
+                                    <p class="mt-3">모델을 로드하고 대화를 시작하세요</p>
+                                </div>
+                            </div>
+
+                            <div class="chat-input-wrap">
+                                <textarea
+                                    id="userInput"
+                                    class="form-control"
+                                    placeholder="메시지를 입력하세요..."
+                                    rows="1"
+                                    disabled></textarea>
+                                <button id="sendBtn" class="btn custom-btn" disabled>
+                                    <i class="bi-send"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="copyright-text mb-0">Copyright © 2026 찬호의 놀이터. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS FILES -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function() {
+        'use strict';
+
+        const API_BASE = '/api/local-llm';
+        let currentModel = null;
+        let chatHistory = [];
+        let isGenerating = false;
+
+        // DOM Elements
+        const modelSelect = document.getElementById('modelSelect');
+        const loadModelBtn = document.getElementById('loadModelBtn');
+        const modelStatus = document.getElementById('modelStatus');
+        const chatContainer = document.getElementById('chatContainer');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const clearChatBtn = document.getElementById('clearChatBtn');
+        const temperature = document.getElementById('temperature');
+        const tempValue = document.getElementById('tempValue');
+        const maxTokens = document.getElementById('maxTokens');
+        const systemPrompt = document.getElementById('systemPrompt');
+
+        // Initialize
+        loadModels();
+
+        // Event Listeners
+        modelSelect.addEventListener('change', () => {
+            loadModelBtn.disabled = !modelSelect.value;
+        });
+
+        loadModelBtn.addEventListener('click', loadModel);
+        sendBtn.addEventListener('click', sendMessage);
+        clearChatBtn.addEventListener('click', clearChat);
+
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        temperature.addEventListener('input', () => {
+            tempValue.textContent = temperature.value;
+        });
+
+        // Functions
+        async function loadModels() {
+            try {
+                const response = await fetch(`${API_BASE}/models`);
+                const models = await response.json();
+
+                modelSelect.innerHTML = '<option value="">모델을 선택하세요</option>';
+
+                if (models.length === 0) {
+                    modelSelect.innerHTML = '<option value="">모델이 없습니다 (backend/models/ 폴더에 GGUF 파일 추가)</option>';
+                    return;
+                }
+
+                // Sort by size (smallest first)
+                models.sort((a, b) => a.size_mb - b.size_mb);
+
+                models.forEach((model, index) => {
+                    const option = document.createElement('option');
+                    option.value = model.name;
+                    option.textContent = `${model.name} (${model.size_mb} MB)`;
+                    modelSelect.appendChild(option);
+
+                    // Default: smallest model
+                    if (index === 0) {
+                        option.selected = true;
+                        loadModelBtn.disabled = false;
+                    }
+                });
+            } catch (error) {
+                console.error('Failed to load models:', error);
+                modelSelect.innerHTML = '<option value="">모델 로드 실패 (백엔드 서버 확인)</option>';
+            }
+        }
+
+        async function loadModel() {
+            const modelName = modelSelect.value;
+            if (!modelName) return;
+
+            loadModelBtn.disabled = true;
+            loadModelBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>로딩 중...';
+
+            try {
+                const response = await fetch(`${API_BASE}/models/${modelName}/load`, {
+                    method: 'POST'
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail);
+                }
+
+                currentModel = modelName;
+                modelStatus.innerHTML = `
+                    <span class="model-status loaded">
+                        <i class="bi-check-circle"></i> ${modelName} 로드됨
+                    </span>
+                `;
+
+                userInput.disabled = false;
+                sendBtn.disabled = false;
+
+                // Clear chat and show welcome
+                clearChat();
+                addMessage('assistant', `안녕하세요! ${modelName} 모델이 로드되었습니다. 무엇을 도와드릴까요?`);
+
+            } catch (error) {
+                alert('모델 로드 실패: ' + error.message);
+                modelStatus.innerHTML = `
+                    <span class="model-status not-loaded">
+                        <i class="bi-x-circle"></i> 로드 실패
+                    </span>
+                `;
+            } finally {
+                loadModelBtn.disabled = false;
+                loadModelBtn.innerHTML = '<i class="bi-download me-2"></i>모델 로드';
+            }
+        }
+
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message || !currentModel || isGenerating) return;
+
+            isGenerating = true;
+            userInput.value = '';
+            sendBtn.disabled = true;
+
+            // Add user message
+            addMessage('user', message);
+            chatHistory.push({ role: 'user', content: message });
+
+            // Show typing indicator
+            const typingId = showTypingIndicator();
+
+            try {
+                // Prepare messages with system prompt
+                const messages = [];
+                if (systemPrompt.value.trim()) {
+                    messages.push({ role: 'system', content: systemPrompt.value.trim() });
+                }
+                messages.push(...chatHistory);
+
+                const response = await fetch(`${API_BASE}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: currentModel,
+                        messages: messages,
+                        max_tokens: parseInt(maxTokens.value),
+                        temperature: parseFloat(temperature.value),
+                        stream: true
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail);
+                }
+
+                // Remove typing indicator
+                removeTypingIndicator(typingId);
+
+                // Stream response
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let assistantMessage = '';
+                let messageElement = null;
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n');
+
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            const data = line.slice(6);
+                            if (data === '[DONE]') continue;
+
+                            try {
+                                const parsed = JSON.parse(data);
+                                if (parsed.token) {
+                                    assistantMessage += parsed.token;
+
+                                    if (!messageElement) {
+                                        messageElement = addMessage('assistant', assistantMessage);
+                                    } else {
+                                        messageElement.querySelector('.chat-bubble').textContent = assistantMessage;
+                                    }
+
+                                    scrollToBottom();
+                                }
+                                if (parsed.error) {
+                                    throw new Error(parsed.error);
+                                }
+                            } catch (e) {
+                                if (e.message !== 'Unexpected end of JSON input') {
+                                    console.error('Parse error:', e);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Add to history
+                if (assistantMessage) {
+                    chatHistory.push({ role: 'assistant', content: assistantMessage });
+                }
+
+            } catch (error) {
+                removeTypingIndicator(typingId);
+                addMessage('assistant', '오류가 발생했습니다: ' + error.message);
+            } finally {
+                isGenerating = false;
+                sendBtn.disabled = false;
+            }
+        }
+
+        function addMessage(role, content) {
+            // Remove empty state if present
+            const emptyState = chatContainer.querySelector('.text-center.text-muted');
+            if (emptyState) emptyState.remove();
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${role}`;
+            messageDiv.innerHTML = `
+                <div class="chat-avatar">${role === 'user' ? '👤' : '🤖'}</div>
+                <div class="chat-bubble">${escapeHtml(content)}</div>
+            `;
+            chatContainer.appendChild(messageDiv);
+            scrollToBottom();
+            return messageDiv;
+        }
+
+        function showTypingIndicator() {
+            const id = 'typing-' + Date.now();
+            const typingDiv = document.createElement('div');
+            typingDiv.id = id;
+            typingDiv.className = 'chat-message assistant';
+            typingDiv.innerHTML = `
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-bubble">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+            chatContainer.appendChild(typingDiv);
+            scrollToBottom();
+            return id;
+        }
+
+        function removeTypingIndicator(id) {
+            const element = document.getElementById(id);
+            if (element) element.remove();
+        }
+
+        function clearChat() {
+            chatHistory = [];
+            chatContainer.innerHTML = `
+                <div class="text-center text-muted py-5">
+                    <i class="bi-chat-dots" style="font-size: 48px;"></i>
+                    <p class="mt-3">${currentModel ? '대화를 시작하세요' : '모델을 로드하고 대화를 시작하세요'}</p>
+                </div>
+            `;
+        }
+
+        function scrollToBottom() {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    })();
+    </script>
+</body>
+</html>

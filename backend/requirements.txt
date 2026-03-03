@@ -1,0 +1,26 @@
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+python-multipart==0.0.6
+python-dotenv==1.0.0
+requests>=2.31.0
+
+# MV Wizard 의존성
+pillow>=10.0.0              # 이미지 처리 (플레이스홀더 생성)
+
+# 선택적 의존성 (실제 AI 서비스 구현 시)
+# Text to Image
+# replicate>=0.20.0        # Replicate API (Stable Diffusion, SVD)
+
+# Story to MV
+# anthropic>=0.18.0        # Claude API
+# openai>=1.0.0            # OpenAI API (DALL-E, GPT)
+# beautifulsoup4>=4.12.0   # 웹 크롤링
+# pydub>=0.25.1            # 오디오 처리
+# ffmpeg-python>=0.2.0     # 비디오 처리
+# boto3>=1.28.0            # AWS S3
+
+# YouTube 업로드
+# google-auth>=2.23.0
+# google-auth-oauthlib>=1.1.0
+# google-api-python-client>=2.108.0

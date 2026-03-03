@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="찬호의 놀이터 - AI 기반 창작 도구 포트폴리오">
+    <meta name="author" content="Chanho">
+    <title>찬호의 놀이터</title>
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body id="section_1">
+
+    <header class="site-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12 d-flex flex-wrap">
+                    <p class="d-flex me-4 mb-0">
+                        <i class="bi-geo-alt me-2"></i>
+                        Seoul, Korea
+                    </p>
+                    <p class="d-flex mb-0">
+                        <i class="bi-envelope me-2"></i>
+                        <a href="/cdn-cgi/l/email-protection#066e636a6a6946656e67686e6928626370"><span class="__cf_email__" data-cfemail="7a121f1616153a19121b141215541e1f0c">[email&#160;protected]</span></a>
+                    </p>
+                </div>
+
+                <div class="col-lg-4 col-12 ms-auto d-lg-block d-none">
+                    <ul class="social-icon">
+                        <li class="social-icon-item">
+                            <a href="https://github.com/chanh0u" target="_blank" class="social-icon-link bi-github"></a>
+                        </li>
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-linkedin"></a>
+                        </li>
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-instagram"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg bg-light shadow-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="logo-icon">🎪</span>
+                <span class="logo-text">찬호의 놀이터</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="#section_1">홈</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="#section_2">소개</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#section_3" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">놀이터</a>
+
+                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                            <li><a class="dropdown-item" href="text-to-image.html">🎨 Text to Image</a></li>
+                            <li><a class="dropdown-item" href="2d-to-3d.html">🎮 2D to 3D</a></li>
+                            <li><a class="dropdown-item" href="story-to-mv.html">🎬 Story to MV</a></li>
+                            <li><a class="dropdown-item" href="mv-wizard.html">✨ MV Wizard (NEW)</a></li>
+                            <li><a class="dropdown-item" href="local-llm.html">🤖 Local LLM Chat</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="#section_6">연락하기</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-12 mx-auto">
+                        <div class="hero-text text-center">
+                            <small class="hero-badge">AI Playground</small>
+                            <h1 class="text-white mt-4 mb-4">찬호의 놀이터에<br>오신 것을 환영합니다</h1>
+                            <p class="text-white mb-4">창의적인 아이디어를 AI로 현실화하는 공간</p>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a class="btn custom-btn smoothscroll" href="#section_2">더 알아보기</a>
+                                <a class="btn custom-btn-outline" href="text-to-image.html">시작하기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-wrap">
+                <video autoplay loop muted class="custom-video" poster="">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-futuristic-devices-99786-large.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="overlay"></div>
+        </section>
+
+        <!-- ABOUT & CAREER SECTION -->
+        <section class="about-section section-padding" id="section_2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-12 text-center mb-5">
+                        <h2 class="section-title">About Me</h2>
+                        <p class="section-subtitle">AI 플랫폼 / 클라우드 인프라 / 백엔드 개발</p>
+                    </div>
+
+                    <div class="col-lg-8 col-12 mx-auto mb-5">
+                        <div class="about-content">
+                            <h3 class="mb-4">안녕하세요!</h3>
+                            <p class="mb-4">저는 <strong>창의적인 아이디어</strong>를 <strong>실제 프로덕트</strong>로 만드는 것을 좋아하는 개발자입니다.</p>
+                            <p class="mb-4">이곳은 제가 만든 다양한 <strong>AI 기반 창작 도구</strong>들을 자유롭게 체험할 수 있는 공간입니다. 텍스트를 이미지로, 2D를 3D로, 스토리를 영상으로 변환하는 등 AI의 무한한 가능성을 탐험해보세요.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Summary -->
+                <div class="row mb-4">
+                    <div class="col-lg-12 col-12 text-center mb-4">
+                        <h3 class="subsection-title">기술 스택</h3>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-lg-10 col-12 mx-auto">
+                        <div class="skills-wrap">
+                            <div class="row">
+                                <div class="col-md-4 col-6 mb-3">
+                                    <div class="skill-badge">
+                                        <i class="bi-code-slash"></i>
+                                        <span>Java / Spring Boot</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6 mb-3">
+                                    <div class="skill-badge">
+                                        <i class="bi-cloud"></i>
+                                        <span>AWS / Kubernetes</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6 mb-3">
+                                    <div class="skill-badge">
+                                        <i class="bi-gear"></i>
+                                        <span>Docker / GitLab CI</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6 mb-3">
+                                    <div class="skill-badge">
+                                        <i class="bi-database"></i>
+                                        <span>PostgreSQL / RedShift</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6 mb-3">
+                                    <div class="skill-badge">
+                                        <i class="bi-robot"></i>
+                                        <span>AI / LLM / Hugging Face</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6 mb-3">
+                                    <div class="skill-badge">
+                                        <i class="bi-graph-up"></i>
+                                        <span>Prometheus / Istio</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Cards -->
+                <div class="row mb-4">
+                    <div class="col-lg-12 col-12 text-center mb-4">
+                        <h3 class="subsection-title">프로젝트 경력</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Project 1 -->
+                    <div class="col-lg-6 col-12 mb-4">
+                        <div class="project-card">
+                            <div class="project-header">
+                                <span class="project-badge badge-finance">금융</span>
+                                <span class="project-date">2025.06 ~ 2025.11</span>
+                            </div>
+                            <h4 class="project-title">AI Core Platform 고도화</h4>
+                            <p class="project-client">신한은행</p>
+                            <p class="project-desc">AI 서비스 이중화 배포(고가용성), 데이터 거버넌스 체계 설계, GitLab Runner 기반 CI/CD 파이프라인 구축</p>
+                            <div class="project-techs">
+                                <span class="tech-tag">Java</span>
+                                <span class="tech-tag">Spring Boot</span>
+                                <span class="tech-tag">Kubernetes</span>
+                                <span class="tech-tag">GitLab Runner</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="col-lg-6 col-12 mb-4">
+                        <div class="project-card">
+                            <div class="project-header">
+                                <span class="project-badge badge-private">민간</span>
+                                <span class="project-date">2024.09 ~ 2025.04</span>
+                            </div>
+                            <h4 class="project-title">데이터 통합 포털 구축 (AWS)</h4>
+                            <p class="project-client">교보생명</p>
+                            <p class="project-desc">AWS EKS 환경 AI 플랫폼 구축, Prometheus/Istio 모니터링 인프라, RedShift/Athena 데이터 파이프라인 개발</p>
+                            <div class="project-techs">
+                                <span class="tech-tag">AWS EKS</span>
+                                <span class="tech-tag">RedShift</span>
+                                <span class="tech-tag">Prometheus</span>
+                                <span class="tech-tag">Istio</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="col-lg-6 col-12 mb-4">
+                        <div class="project-card">
+                            <div class="project-header">
+                                <span class="project-badge badge-public">공공</span>
+                                <span class="project-date">2024.01 ~ 2024.07</span>
+                            </div>
+                            <h4 class="project-title">교육플랫폼 3차 고도화</h4>
+                            <p class="project-client">서울시</p>
+                            <p class="project-desc">가명/익명 데이터 접근 제어 프로세스 설계 및 개발, JMeter 성능 테스트 및 병목 개선</p>
+                            <div class="project-techs">
+                                <span class="tech-tag">Java</span>
+                                <span class="tech-tag">Spring Boot</span>
+                                <span class="tech-tag">JMeter</span>
+                                <span class="tech-tag">데이터 거버넌스</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="col-lg-6 col-12 mb-4">
+                        <div class="project-card">
+                            <div class="project-header">
+                                <span class="project-badge badge-finance">금융</span>
+                                <span class="project-date">2022.11 ~ 2023.04</span>
+                            </div>
+                            <h4 class="project-title">AI Core Platform MultiCloud 구축</h4>
+                            <p class="project-client">신한은행</p>
+                            <p class="project-desc">Spring Scheduler 기반 NAS 스토리지 용량 배치 프로세스 개발, 퍼블릭 클러스터 환경 배포</p>
+                            <div class="project-techs">
+                                <span class="tech-tag">Java</span>
+                                <span class="tech-tag">Spring Scheduler</span>
+                                <span class="tech-tag">Kubernetes</span>
+                                <span class="tech-tag">NAS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side Projects -->
+                <div class="row mt-4">
+                    <div class="col-lg-12 col-12 text-center mb-4">
+                        <h3 class="subsection-title">사이드 프로젝트</h3>
+                    </div>
+
+                    <div class="col-lg-6 col-12 mb-4">
+                        <div class="project-card side-project">
+                            <div class="project-header">
+                                <span class="project-badge badge-side">개인</span>
+                            </div>
+                            <h4 class="project-title">Hugging Face AI 모델 서비스 포털</h4>
+                            <p class="project-desc">다양한 Hugging Face AI 모델을 통합 활용할 수 있는 서비스 연동 포털 개발</p>
+                            <div class="project-techs">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Hugging Face</span>
+                                <span class="tech-tag">AI Model Serving</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-12 mb-4">
+                        <div class="project-card side-project">
+                            <div class="project-header">
+                                <span class="project-badge badge-side">개인</span>
+                            </div>
+                            <h4 class="project-title">폐쇄망 로컬 LLM & AI Agent 서버</h4>
+                            <p class="project-desc">폐쇄망 환경에서 동작하는 LLM 서버 및 AI Agent 개발, SI 현장 적용 가능한 실용적 솔루션</p>
+                            <div class="project-techs">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">LLM</span>
+                                <span class="tech-tag">AI Agent</span>
+                                <span class="tech-tag">Docker</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PLAYGROUND SECTION -->
+        <section class="playground-section section-padding" id="section_3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-12 text-center mb-5">
+                        <h2 class="section-title">놀이터</h2>
+                        <p class="section-subtitle">AI 기반 창작 도구를 체험해보세요</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Text to Image -->
+                    <div class="col-lg-4 col-md-6 col-12 mb-4">
+                        <a href="text-to-image.html" class="playground-link-card">
+                            <div class="playground-card text-center">
+                                <div class="playground-icon">🎨</div>
+                                <h3 class="playground-title">Text to Image</h3>
+                                <p class="playground-desc">상상하는 모든 것을 이미지로 만들어보세요. AI가 당신의 아이디어를 시각화합니다.</p>
+                                <ul class="feature-list-mini">
+                                    <li>Stable Diffusion XL</li>
+                                    <li>다양한 스타일 지원</li>
+                                    <li>고해상도 출력</li>
+                                </ul>
+                                <span class="btn custom-btn mt-3">시작하기</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 2D to 3D -->
+                    <div class="col-lg-4 col-md-6 col-12 mb-4">
+                        <a href="2d-to-3d.html" class="playground-link-card">
+                            <div class="playground-card text-center">
+                                <div class="playground-icon">🎮</div>
+                                <h3 class="playground-title">2D to 3D</h3>
+                                <p class="playground-desc">2D 캐릭터를 입체적인 3D 모델로 변환하세요. 메이플스토리 캐릭터도 3D로!</p>
+                                <ul class="feature-list-mini">
+                                    <li>TripoSR 기술 적용</li>
+                                    <li>360도 회전 뷰어</li>
+                                    <li>GLB 형식 다운로드</li>
+                                </ul>
+                                <span class="btn custom-btn mt-3">시작하기</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Story to MV -->
+                    <div class="col-lg-4 col-md-6 col-12 mb-4">
+                        <a href="story-to-mv.html" class="playground-link-card">
+                            <div class="playground-card text-center">
+                                <div class="playground-icon">🎬</div>
+                                <h3 class="playground-title">Story to MV</h3>
+                                <p class="playground-desc">당신의 스토리를 감동적인 뮤직비디오로 만들어보세요.</p>
+                                <ul class="feature-list-mini">
+                                    <li>AI 줄거리 분석</li>
+                                    <li>자동 가사/음악 생성</li>
+                                    <li>뮤직비디오 생성</li>
+                                </ul>
+                                <span class="btn custom-btn mt-3">시작하기</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- MV Wizard -->
+                    <div class="col-lg-4 col-md-6 col-12 mb-4">
+                        <a href="mv-wizard.html" class="playground-link-card">
+                            <div class="playground-card text-center" style="border: 2px solid var(--primary-color);">
+                                <span class="badge bg-primary position-absolute" style="top: 10px; right: 10px;">NEW</span>
+                                <div class="playground-icon">✨</div>
+                                <h3 class="playground-title">MV Wizard</h3>
+                                <p class="playground-desc">6단계 위자드로 AI 뮤직비디오를 완성하세요. YouTube Shorts 최적화!</p>
+                                <ul class="feature-list-mini">
+                                    <li>6단계 위자드 UI</li>
+                                    <li>9:16 Shorts 포맷</li>
+                                    <li>YouTube 업로드</li>
+                                </ul>
+                                <span class="btn custom-btn mt-3">시작하기</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Local LLM Chat -->
+                    <div class="col-lg-4 col-md-6 col-12 mb-4">
+                        <a href="local-llm.html" class="playground-link-card">
+                            <div class="playground-card text-center">
+                                <div class="playground-icon">🤖</div>
+                                <h3 class="playground-title">Local LLM Chat</h3>
+                                <p class="playground-desc">로컬에서 실행되는 AI와 대화하세요. 인터넷 없이도 사용 가능!</p>
+                                <ul class="feature-list-mini">
+                                    <li>GGUF 모델 지원</li>
+                                    <li>실시간 스트리밍</li>
+                                    <li>완전한 프라이버시</li>
+                                </ul>
+                                <span class="btn custom-btn mt-3">시작하기</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWSLETTER SECTION -->
+        <section class="newsletter-section section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-12 mx-auto">
+                        <div class="newsletter-content text-center">
+                            <h2 class="text-white mb-4">새로운 기능 알림 받기</h2>
+                            <p class="text-white mb-4">새로운 AI 도구가 출시되면 가장 먼저 알려드립니다</p>
+                            <form class="custom-form newsletter-form" role="form">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-12 mx-auto">
+                                        <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="이메일 주소를 입력하세요" required="">
+                                        <button type="submit" class="btn custom-btn mt-3">구독하기</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section class="contact-section section-padding" id="section_6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-12 text-center mb-5">
+                        <h2 class="section-title">Contact Me</h2>
+                        <p class="section-subtitle">프로젝트 제안이나 문의사항이 있으신가요?</p>
+                    </div>
+
+                    <div class="col-lg-5 col-12 mb-4 mb-lg-0">
+                        <div class="contact-info-wrap">
+                            <h4 class="mb-4">연락처 정보</h4>
+                            
+                            <div class="contact-info d-flex align-items-center mb-3">
+                                <i class="bi-geo-alt contact-icon"></i>
+                                <p class="mb-0">Seoul, Korea</p>
+                            </div>
+
+                            <div class="contact-info d-flex align-items-center mb-3">
+                                <i class="bi-telephone contact-icon"></i>
+                                <a href="tel:010-2956-3940">010-2956-3940</a>
+                            </div>
+
+                            <div class="contact-info d-flex align-items-center">
+                                <i class="bi-envelope contact-icon"></i>
+                                <a href="/cdn-cgi/l/email-protection#f79f929b9b98b7949f96999f98d9939281"><span class="__cf_email__" data-cfemail="5f373a3333301f3c373e313730713b3a29">[email&#160;protected]</span></a>
+                            </div>
+
+                            <div class="social-icon-wrap mt-5">
+                                <h5 class="mb-3">Follow Me</h5>
+                                <ul class="social-icon">
+                                    <li class="social-icon-item">
+                                        <a href="https://github.com/chanh0u" target="_blank" class="social-icon-link bi-github"></a>
+                                    </li>
+                                    <li class="social-icon-item">
+                                        <a href="#" class="social-icon-link bi-linkedin"></a>
+                                    </li>
+                                    <li class="social-icon-item">
+                                        <a href="#" class="social-icon-link bi-instagram"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 col-12">
+                        <form class="custom-form contact-form" role="form">
+                            <h4 class="mb-4">메시지 보내기</h4>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="form-floating mb-4">
+                                        <input type="text" name="name" id="name" class="form-control" placeholder="이름" required="">
+                                        <label for="name">이름</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="form-floating mb-4">
+                                        <input type="email" name="email" id="email2" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="이메일" required="">
+                                        <label for="email2">이메일</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-12">
+                                    <div class="form-floating mb-4">
+                                        <textarea class="form-control" id="message" name="message" placeholder="메시지"></textarea>
+                                        <label for="message">메시지</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-12 ms-auto">
+                                    <button type="submit" class="btn custom-btn">보내기</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12 mb-4">
+                    <div class="footer-brand">
+                        <span class="logo-icon">🎪</span>
+                        <span class="logo-text">찬호의 놀이터</span>
+                    </div>
+                    <p class="mt-3">AI와 함께하는 창작의 즐거움을 경험하세요</p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12 mb-4">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="footer-menu">
+                        <li><a href="#section_1">홈</a></li>
+                        <li><a href="#section_2">소개</a></li>
+                        <li><a href="text-to-image.html">Text to Image</a></li>
+                        <li><a href="2d-to-3d.html">2D to 3D</a></li>
+                        <li><a href="story-to-mv.html">Story to MV</a></li>
+                        <li><a href="mv-wizard.html">MV Wizard</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12">
+                    <h5 class="mb-3">Connect</h5>
+                    <ul class="social-icon">
+                        <li class="social-icon-item">
+                            <a href="https://github.com/chanh0u" target="_blank" class="social-icon-link bi-github"></a>
+                        </li>
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-linkedin"></a>
+                        </li>
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-instagram"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <p class="copyright-text mb-0">Copyright © 2026 찬호의 놀이터. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS FILES -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
+      

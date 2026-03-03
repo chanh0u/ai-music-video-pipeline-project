@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Text to Image - AI 이미지 생성">
+    <meta name="author" content="Chanho">
+    <title>Text to Image - 찬호의 놀이터</title>
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-light shadow-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="logo-icon">🎪</span>
+                <span class="logo-text">찬호의 놀이터</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">홈</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">놀이터</a>
+                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                            <li><a class="dropdown-item active" href="text-to-image.html">🎨 Text to Image</a></li>
+                            <li><a class="dropdown-item" href="2d-to-3d.html">🎮 2D to 3D</a></li>
+                            <li><a class="dropdown-item" href="story-to-mv.html">🎬 Story to MV</a></li>
+                            <li><a class="dropdown-item" href="local-llm.html">🤖 Local LLM Chat</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#section_6">연락하기</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- PAGE HEADER -->
+        <section class="page-header-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="page-icon">🎨</div>
+                        <h1 class="page-title">Text to Image</h1>
+                        <p class="page-subtitle">상상하는 모든 것을 이미지로 만들어보세요</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN CONTENT -->
+        <section class="tool-section section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-12 mb-4 mb-lg-0">
+                        <div class="tool-card">
+                            <h4 class="mb-4">이미지 생성</h4>
+
+                            <ul class="feature-list mb-4">
+                                <li><i class="bi-check-circle-fill"></i> Stable Diffusion XL</li>
+                                <li><i class="bi-check-circle-fill"></i> 다양한 스타일 지원</li>
+                                <li><i class="bi-check-circle-fill"></i> 고해상도 출력 (최대 2048px)</li>
+                                <li><i class="bi-check-circle-fill"></i> 프롬프트 자동 개선</li>
+                            </ul>
+
+                            <form id="textToImageForm">
+                                <div class="mb-3">
+                                    <label for="imagePrompt" class="form-label">프롬프트</label>
+                                    <textarea
+                                        class="form-control"
+                                        id="imagePrompt"
+                                        name="prompt"
+                                        rows="3"
+                                        placeholder="예: 귀여운 고양이, 바다 위 석양, a cute cat playing with yarn"
+                                        required></textarea>
+                                    <small class="text-muted">한글/영어 모두 가능</small>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="negativePrompt" class="form-label">네거티브 프롬프트 (선택)</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="negativePrompt"
+                                        name="negative_prompt"
+                                        placeholder="예: blurry, low quality, distorted">
+                                    <small class="text-muted">제외할 요소</small>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="imageWidth" class="form-label">너비</label>
+                                        <select class="form-select" id="imageWidth" name="width">
+                                            <option value="512" selected>512px</option>
+                                            <option value="768">768px</option>
+                                            <option value="1024">1024px</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        <label for="imageHeight" class="form-label">높이</label>
+                                        <select class="form-select" id="imageHeight" name="height">
+                                            <option value="512" selected>512px</option>
+                                            <option value="768">768px</option>
+                                            <option value="1024">1024px</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        <label for="imageCount" class="form-label">개수</label>
+                                        <select class="form-select" id="imageCount" name="num_outputs">
+                                            <option value="1" selected>1개</option>
+                                            <option value="2">2개</option>
+                                            <option value="4">4개</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="provider" class="form-label">AI Provider</label>
+                                    <select class="form-select" id="provider" name="provider">
+                                        <option value="stability">Stability AI (SDXL)</option>
+                                        <option value="dalle">OpenAI DALL-E 3</option>
+                                        <option value="replicate">Replicate (SDXL)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="enhancePrompt" name="enhance">
+                                    <label class="form-check-label" for="enhancePrompt">
+                                        프롬프트 자동 개선
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn custom-btn w-100">
+                                    <span class="button-text">🎨 이미지 생성</span>
+                                    <span class="button-loader d-none">
+                                        <span class="spinner-border spinner-border-sm me-2"></span>
+                                        생성 중...
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-12">
+                        <div class="tool-card result-card">
+                            <h4 class="mb-4">결과</h4>
+                            <div class="result-preview">
+                                <img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=800" class="img-fluid rounded" alt="Preview" id="previewImage">
+                            </div>
+                            <div id="imageResult" class="mt-4 d-none">
+                                <div class="alert alert-success">
+                                    <h6 class="mb-3">생성 완료!</h6>
+                                    <div id="imageResultContent"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="copyright-text mb-0">Copyright © 2026 찬호의 놀이터. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS FILES -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

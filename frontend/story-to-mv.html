@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Story to MV - AI 뮤직비디오 생성">
+    <meta name="author" content="Chanho">
+    <title>Story to MV - 찬호의 놀이터</title>
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-light shadow-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="logo-icon">🎪</span>
+                <span class="logo-text">찬호의 놀이터</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">홈</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">놀이터</a>
+                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                            <li><a class="dropdown-item" href="text-to-image.html">🎨 Text to Image</a></li>
+                            <li><a class="dropdown-item" href="2d-to-3d.html">🎮 2D to 3D</a></li>
+                            <li><a class="dropdown-item active" href="story-to-mv.html">🎬 Story to MV</a></li>
+                            <li><a class="dropdown-item" href="mv-wizard.html">✨ MV Wizard (NEW)</a></li>
+                            <li><a class="dropdown-item" href="local-llm.html">🤖 Local LLM Chat</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#section_6">연락하기</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- MV Wizard 안내 배너 -->
+        <div class="bg-primary text-white py-2">
+            <div class="container text-center">
+                <span>✨ NEW! 6단계 위자드로 더 쉽게 만들어보세요 </span>
+                <a href="mv-wizard.html" class="btn btn-light btn-sm ms-2">MV Wizard 시작하기</a>
+            </div>
+        </div>
+
+        <!-- PAGE HEADER -->
+        <section class="page-header-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="page-icon">🎬</div>
+                        <h1 class="page-title">Story to Music Video</h1>
+                        <p class="page-subtitle">당신의 스토리를 감동적인 뮤직비디오로 만들어보세요</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN CONTENT -->
+        <section class="tool-section section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-12 mb-4 mb-lg-0">
+                        <div class="tool-card">
+                            <h4 class="mb-4">스토리 입력</h4>
+
+                            <ul class="feature-list mb-4">
+                                <li><i class="bi-check-circle-fill"></i> AI 줄거리 분석</li>
+                                <li><i class="bi-check-circle-fill"></i> 자동 가사 생성</li>
+                                <li><i class="bi-check-circle-fill"></i> 배경음악 생성</li>
+                                <li><i class="bi-check-circle-fill"></i> 뮤직비디오 생성</li>
+                            </ul>
+
+                            <form id="storyToMVForm">
+                                <div class="mb-3">
+                                    <label for="story" class="form-label">스토리</label>
+                                    <textarea
+                                        class="form-control"
+                                        id="story"
+                                        name="story"
+                                        rows="6"
+                                        placeholder="당신의 스토리를 입력하세요..."
+                                        required></textarea>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="genre" class="form-label">음악 장르</label>
+                                        <select class="form-select" id="genre" name="genre">
+                                            <option value="ballad">발라드</option>
+                                            <option value="pop">팝</option>
+                                            <option value="rock">록</option>
+                                            <option value="jazz">재즈</option>
+                                            <option value="cinematic">시네마틱</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="voice" class="form-label">보이스 타입</label>
+                                        <select class="form-select" id="voice" name="voice">
+                                            <option value="female">여성</option>
+                                            <option value="male">남성</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn custom-btn w-100">
+                                    <span class="button-text">🎬 뮤직비디오 생성</span>
+                                    <span class="button-loader d-none">
+                                        <span class="spinner-border spinner-border-sm me-2"></span>
+                                        생성 중...
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-12">
+                        <div class="tool-card result-card">
+                            <h4 class="mb-4">결과</h4>
+                            <div class="result-preview">
+                                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800" class="img-fluid rounded" alt="Preview">
+                            </div>
+                            <div id="mvResult" class="mt-4 d-none">
+                                <div class="alert alert-success">
+                                    <h6 class="mb-3">생성 완료!</h6>
+                                    <div id="resultContent"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="copyright-text mb-0">Copyright © 2026 찬호의 놀이터. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS FILES -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

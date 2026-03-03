@@ -1,0 +1,29 @@
+# Python
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+backend/.env
+backend/venv/
+backend/.venv/
+backend/.pytest_cache/
+backend/.coverage
+backend/htmlcov/
+backend/outputs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
+
+# API Keys
+.env
+*.key

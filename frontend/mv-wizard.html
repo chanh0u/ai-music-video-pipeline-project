@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MV Wizard - AI 뮤직비디오 제작</title>
+
+    <!-- CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/wizard.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 네비게이션 -->
+    <nav class="navbar navbar-expand-lg bg-light shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="logo-icon">🎪</span>
+                <span class="logo-text">찬호의 놀이터</span>
+            </a>
+            <a href="story-to-mv.html" class="btn btn-outline-secondary btn-sm">
+                <i class="bi-arrow-left"></i> 기본 모드로
+            </a>
+        </div>
+    </nav>
+
+    <main class="container py-4">
+        <!-- 헤더 -->
+        <div class="text-center mb-4">
+            <h1>🎬 MV Wizard</h1>
+            <p class="text-muted">6단계로 완성하는 AI 뮤직비디오</p>
+        </div>
+
+        <!-- 진행 표시기 -->
+        <div class="wizard-progress">
+            <div class="wizard-step active" data-step="1">
+                <div class="step-indicator">
+                    <span class="step-number">1</span>
+                </div>
+                <span class="step-label">스토리</span>
+            </div>
+            <div class="wizard-step" data-step="2">
+                <div class="step-indicator">
+                    <span class="step-number">2</span>
+                </div>
+                <span class="step-label">가사</span>
+            </div>
+            <div class="wizard-step" data-step="3">
+                <div class="step-indicator">
+                    <span class="step-number">3</span>
+                </div>
+                <span class="step-label">음악</span>
+            </div>
+            <div class="wizard-step" data-step="4">
+                <div class="step-indicator">
+                    <span class="step-number">4</span>
+                </div>
+                <span class="step-label">이미지</span>
+            </div>
+            <div class="wizard-step" data-step="5">
+                <div class="step-indicator">
+                    <span class="step-number">5</span>
+                </div>
+                <span class="step-label">비디오</span>
+            </div>
+            <div class="wizard-step" data-step="6">
+                <div class="step-indicator">
+                    <span class="step-number">6</span>
+                </div>
+                <span class="step-label">완성</span>
+            </div>
+        </div>
+
+        <!-- Step 1: 스토리 입력 -->
+        <div class="step-panel active" id="step1">
+            <div class="step-header">
+                <h2>Step 1: 스토리 입력</h2>
+                <p>뮤직비디오로 만들고 싶은 이야기를 입력해주세요</p>
+            </div>
+            <div class="step-content">
+                <div class="story-input-wrapper">
+                    <textarea
+                        id="storyInput"
+                        class="story-textarea"
+                        placeholder="여기에 스토리를 입력하세요...
+
+예시:
+봄날의 오후, 한 소녀가 벚꽃 나무 아래서 편지를 읽고 있다.
+바람에 날리는 꽃잎들 사이로 그녀의 눈물이 흐른다.
+멀리서 기차 소리가 들려오고, 그녀는 천천히 일어나 역으로 향한다.
+플랫폼에서 기다리던 소년이 그녀를 발견하고 달려온다.
+두 사람은 서로를 껴안고, 이별의 슬픔이 재회의 기쁨으로 바뀐다."
+                    ></textarea>
+                    <span id="storyCounter" class="story-counter">0자</span>
+                </div>
+
+                <div class="wizard-navigation">
+                    <div></div>
+                    <button class="btn-nav btn-next" onclick="wizard.analyzeStory()">
+                        분석 시작 <i class="bi-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: 가사 생성 -->
+        <div class="step-panel" id="step2">
+            <div class="step-header">
+                <h2>Step 2: 가사 생성</h2>
+                <p>AI가 스토리를 분석하여 가사를 생성합니다</p>
+            </div>
+            <div class="step-content">
+                <!-- 분석 결과 -->
+                <div id="analysisResult" class="mb-4">
+                    <!-- 분석 결과가 여기에 표시됩니다 -->
+                </div>
+
+                <!-- 가사 편집기 -->
+                <div class="lyrics-editor">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5>생성된 가사</h5>
+                        <button class="btn btn-outline-primary btn-sm" onclick="wizard.generateLyrics()">
+                            <i class="bi-stars"></i> 가사 생성
+                        </button>
+                    </div>
+                    <textarea
+                        id="lyricsTextarea"
+                        class="lyrics-textarea"
+                        placeholder="'가사 생성' 버튼을 클릭하여 AI 가사를 생성하거나, 직접 가사를 입력하세요."
+                    ></textarea>
+                </div>
+
+                <div class="wizard-navigation">
+                    <button class="btn-nav btn-prev" onclick="wizard.prevStep()">
+                        <i class="bi-arrow-left"></i> 이전
+                    </button>
+                    <button class="btn-nav btn-next" onclick="wizard.saveLyrics()">
+                        다음 <i class="bi-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: 음악 생성 -->
+        <div class="step-panel" id="step3">
+            <div class="step-header">
+                <h2>Step 3: 음악 생성</h2>
+                <p>장르를 선택하고 배경 음악을 생성합니다</p>
+            </div>
+            <div class="step-content">
+                <div class="audio-player-wrapper mb-4">
+                    <h4><i class="bi-music-note-beamed"></i> 배경 음악</h4>
+                    <audio id="audioPlayer" controls class="audio-player mt-3">
+                        <source src="" type="audio/mpeg">
+                    </audio>
+                    <div id="musicInfo" class="mt-3"></div>
+
+                    <div class="genre-selector">
+                        <button class="genre-btn active" data-genre="ballad">🎹 Ballad</button>
+                        <button class="genre-btn" data-genre="pop">🎤 Pop</button>
+                        <button class="genre-btn" data-genre="rock">🎸 Rock</button>
+                        <button class="genre-btn" data-genre="jazz">🎷 Jazz</button>
+                        <button class="genre-btn" data-genre="cinematic">🎬 Cinematic</button>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn custom-btn" onclick="wizard.generateMusic()">
+                        <i class="bi-music-note"></i> 음악 생성
+                    </button>
+                </div>
+
+                <div class="wizard-navigation">
+                    <button class="btn-nav btn-prev" onclick="wizard.prevStep()">
+                        <i class="bi-arrow-left"></i> 이전
+                    </button>
+                    <button class="btn-nav btn-next" onclick="wizard.nextStep()">
+                        다음 <i class="bi-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: 이미지 생성 -->
+        <div class="step-panel" id="step4">
+            <div class="step-header">
+                <h2>Step 4: 장면 이미지</h2>
+                <p>각 장면의 이미지를 AI로 생성합니다 (9:16 Shorts 비율)</p>
+            </div>
+            <div class="step-content">
+                <div class="text-center mb-4">
+                    <button class="btn custom-btn" onclick="wizard.generateSceneImages()">
+                        <i class="bi-images"></i> 이미지 생성
+                    </button>
+                </div>
+
+                <div id="sceneGrid" class="scene-grid">
+                    <!-- 이미지 카드가 여기에 표시됩니다 -->
+                    <div class="text-center text-muted py-5" style="grid-column: 1/-1;">
+                        <i class="bi-images" style="font-size: 3rem;"></i>
+                        <p class="mt-2">'이미지 생성' 버튼을 클릭하여 장면 이미지를 생성하세요</p>
+                    </div>
+                </div>
+
+                <div class="wizard-navigation">
+                    <button class="btn-nav btn-prev" onclick="wizard.prevStep()">
+                        <i class="bi-arrow-left"></i> 이전
+                    </button>
+                    <button class="btn-nav btn-next" onclick="wizard.nextStep()">
+                        다음 <i class="bi-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: 비디오 클립 생성 -->
+        <div class="step-panel" id="step5">
+            <div class="step-header">
+                <h2>Step 5: 비디오 클립</h2>
+                <p>이미지를 움직이는 비디오 클립으로 변환합니다</p>
+            </div>
+            <div class="step-content">
+                <div class="text-center mb-4">
+                    <button class="btn custom-btn" onclick="wizard.generateVideoClips()">
+                        <i class="bi-film"></i> 비디오 클립 생성
+                    </button>
+                </div>
+
+                <div id="videoClipsGrid" class="scene-grid">
+                    <!-- 비디오 클립 카드가 여기에 표시됩니다 -->
+                    <div class="text-center text-muted py-5" style="grid-column: 1/-1;">
+                        <i class="bi-film" style="font-size: 3rem;"></i>
+                        <p class="mt-2">'비디오 클립 생성' 버튼을 클릭하여 클립을 생성하세요</p>
+                    </div>
+                </div>
+
+                <div class="wizard-navigation">
+                    <button class="btn-nav btn-prev" onclick="wizard.prevStep()">
+                        <i class="bi-arrow-left"></i> 이전
+                    </button>
+                    <button class="btn-nav btn-next" onclick="wizard.nextStep()">
+                        다음 <i class="bi-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 6: 최종 합성 -->
+        <div class="step-panel" id="step6">
+            <div class="step-header">
+                <h2>Step 6: 완성!</h2>
+                <p>최종 뮤직비디오를 합성하고 다운로드하세요</p>
+            </div>
+            <div class="step-content final-video-panel">
+                <div class="text-center mb-4">
+                    <button class="btn custom-btn btn-lg" onclick="wizard.composeFinalVideo()">
+                        <i class="bi-magic"></i> 최종 합성
+                    </button>
+                </div>
+
+                <!-- 최종 비디오 미리보기 -->
+                <div class="final-video-wrapper">
+                    <div id="finalVideoPreview" class="video-preview-shorts">
+                        <div class="scene-placeholder">
+                            <i class="bi-play-circle" style="font-size: 4rem;"></i>
+                            <p>합성이 완료되면 여기에 비디오가 표시됩니다</p>
+                        </div>
+                    </div>
+                    <div id="finalVideoInfo" class="mt-3 text-center"></div>
+                </div>
+
+                <!-- 액션 버튼 -->
+                <div class="action-buttons mt-4">
+                    <button class="btn-download" onclick="wizard.downloadVideo()">
+                        <i class="bi-download"></i> 다운로드
+                    </button>
+                    <button class="btn-youtube" onclick="document.getElementById('youtubeModal').style.display='flex'">
+                        <i class="bi-youtube"></i> YouTube 업로드
+                    </button>
+                </div>
+
+                <div class="wizard-navigation">
+                    <button class="btn-nav btn-prev" onclick="wizard.prevStep()">
+                        <i class="bi-arrow-left"></i> 이전
+                    </button>
+                    <a href="index.html" class="btn-nav btn-next">
+                        홈으로 <i class="bi-house"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- YouTube 업로드 모달 -->
+    <div id="youtubeModal" class="loading-overlay" style="display: none;">
+        <div class="bg-white rounded-3 p-4 shadow" style="max-width: 500px; width: 90%;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="mb-0"><i class="bi-youtube text-danger"></i> YouTube 업로드</h4>
+                <button class="btn-close" onclick="document.getElementById('youtubeModal').style.display='none'"></button>
+            </div>
+
+            <div class="youtube-upload-form">
+                <div class="form-group">
+                    <label for="ytTitle">제목 *</label>
+                    <input type="text" id="ytTitle" placeholder="비디오 제목을 입력하세요" maxlength="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="ytDescription">설명</label>
+                    <textarea id="ytDescription" rows="3" placeholder="비디오 설명을 입력하세요"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>공개 설정</label>
+                    <div class="privacy-options">
+                        <div class="privacy-option active" data-privacy="private">
+                            <i class="bi-lock"></i>
+                            <span>비공개</span>
+                        </div>
+                        <div class="privacy-option" data-privacy="unlisted">
+                            <i class="bi-link"></i>
+                            <span>일부 공개</span>
+                        </div>
+                        <div class="privacy-option" data-privacy="public">
+                            <i class="bi-globe"></i>
+                            <span>공개</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button class="btn btn-outline-primary" onclick="wizard.initiateYouTubeAuth()">
+                        <i class="bi-box-arrow-in-right"></i> YouTube 계정 연동
+                    </button>
+                    <button class="btn btn-danger" onclick="wizard.uploadToYouTube()">
+                        <i class="bi-upload"></i> 업로드
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 로딩 오버레이 -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">처리 중...</p>
+        <p class="loading-subtext"></p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer py-3">
+        <div class="container text-center">
+            <p class="mb-0 text-muted">MV Wizard - AI 뮤직비디오 제작 도구</p>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/mv-wizard.js"></script>
+</body>
+</html>
